@@ -40,7 +40,7 @@ module Scholarsphere
     end
 
     def configset_name
-      @configset_name ||= "configset-#{solr_md5}"
+      @configset_name ||= "#{collection_name}-#{solr_md5}"
     end
 
     def tempfile
