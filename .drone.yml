@@ -87,7 +87,7 @@ steps:
         -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
         -e DRONE_BRANCH=$DRONE_BRANCH
         -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
-        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec bash -c '/app/bin/ci-rspec --exclude-pattern "**/feature/*"'
+        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec bash -c '/app/bin/ci-rspec --exclude-pattern "**/features/*"'
     # - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER
     # - docker start test-$DRONE_BUILD_NUMBER -a
 
@@ -113,7 +113,7 @@ steps:
         -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
         -e DRONE_BRANCH=$DRONE_BRANCH
         -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
-        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec bash -c '/app/bin/ci-rspec --pattern "**/feature/*"'
+        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec bash -c '/app/bin/ci-rspec --pattern "**/features/*"'
 
 - name: push
   image: docker
