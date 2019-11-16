@@ -108,6 +108,7 @@ steps:
         -e POSTGRES_DB=scholarsphere-feature
         -e POSTGRES_HOST=postgres
         -e SOLR_HOST=solr
+        -e SOLR_COLLECTION=feature
         -e CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
         -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
         -e DRONE_BRANCH=$DRONE_BRANCH
