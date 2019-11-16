@@ -87,9 +87,32 @@ steps:
         -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
         -e DRONE_BRANCH=$DRONE_BRANCH
         -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
-        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec
+        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec '/app/bin/ci-rspec --exclude-pattern "**/feature/*"'
     # - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER
     # - docker start test-$DRONE_BUILD_NUMBER -a
+
+- name: test-feature
+  <<: *test_common
+  commands:
+    - export DOCKER_HOST=unix:///var/run/host.sock
+    - docker run --name test-$DRONE_BUILD_NUMBER --network $DOCKER_NETWORK_ID
+        -e S3_ENDPOINT=http://minio:9000
+        -e AWS_BUCKET=scholarsphere
+        -e AWS_ACCESS_KEY_ID=scholarsphere
+        -e AWS_SECRET_ACCESS_KEY=scholarsphere
+        -e AWS_REGION=us-east-1
+        -e APP_HOST=test-$DRONE_BUILD_NUMBER
+        -e POSTGRES_USER=scholarsphere
+        -e SELENIUM_URL=http://selenium:4444/wd/hub
+        -e POSTGRES_PASSWORD=scholarsphere
+        -e POSTGRES_DB=scholarsphere-feature
+        -e POSTGRES_HOST=postgres
+        -e SOLR_HOST=solr
+        -e CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
+        -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
+        -e DRONE_BRANCH=$DRONE_BRANCH
+        -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
+        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec '/app/bin/ci-rspec --pattern "**/feature/*"'
 
 - name: push
   image: docker
