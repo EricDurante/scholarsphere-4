@@ -70,7 +70,7 @@ steps:
   <<: *test_common
   commands:
     - export DOCKER_HOST=unix:///var/run/host.sock
-    - docker create --name test-$DRONE_BUILD_NUMBER --network drone
+    - docker run --name test-$DRONE_BUILD_NUMBER --network $DOCKER_NETWORK_ID
         -e S3_ENDPOINT=http://minio:9000
         -e AWS_BUCKET=scholarsphere
         -e AWS_ACCESS_KEY_ID=scholarsphere
@@ -88,8 +88,8 @@ steps:
         -e DRONE_BRANCH=$DRONE_BRANCH
         -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
         harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec
-    - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER
-    - docker start test-$DRONE_BUILD_NUMBER -a
+    # - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER
+    # - docker start test-$DRONE_BUILD_NUMBER -a
 
 - name: push
   image: docker
