@@ -45,4 +45,6 @@ cc-test-reporter
 # Docker sync ignores 
 .bash_history
 .cache
+.gem
 .yarnrc
+.guard_history
