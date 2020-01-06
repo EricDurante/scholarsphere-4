@@ -37,6 +37,7 @@ argocd_common: &argocd_common
     - push
   commands:
     - git clone https://github.com/psu-stewardship/scholarsphere-config.git
+    - git checkout $CONFIG_BRANCH
     - cd scholarsphere-config
     - ./generate_application.sh
 
@@ -159,6 +160,7 @@ steps:
   <<: *argocd_common
   environment:
     CONFIG_ENV: dev
+    CONFIG_BRANCH: helm
     ARGOCD_SERVER: argocd.dsrd.libraries.psu.edu
     SLACK_WEBHOOK_URL:
       from_secret: SLACK_WEBHOOK_URL
@@ -209,6 +211,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: fec077364ec8d7b5af5d66761821be7226d877d9eda915f46125094a2660aa8d
+hmac: 41511232ab9a3ff67b4341b71a215d9b0cae32c8baf804e8ac0d6f622d2cad7d
 
 ...
