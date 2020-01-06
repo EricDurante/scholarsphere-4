@@ -37,8 +37,8 @@ argocd_common: &argocd_common
     - push
   commands:
     - git clone https://github.com/psu-stewardship/scholarsphere-config.git
-    - git checkout $CONFIG_BRANCH
     - cd scholarsphere-config
+    - git checkout $CONFIG_BRANCH
     - ./generate_application.sh
 
 
@@ -211,6 +211,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: 41511232ab9a3ff67b4341b71a215d9b0cae32c8baf804e8ac0d6f622d2cad7d
+hmac: decbfd9d0b33be97e90c472f4b46acf6e83abc78ecb7f077b5186768ae026b34
 
 ...
