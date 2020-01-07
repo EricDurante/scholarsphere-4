@@ -2,8 +2,8 @@
 set -e 
 
 # Vault init container will drop the token in /vault/token; alternatively we can set the VAULT_TOKEN env variable 
-if [ -f /home/vault/.token ]; then
-    export VAULT_TOKEN=$(cat /home/vault/.token)
+if [ -f /vault/.vault-token ]; then
+    export VAULT_TOKEN=$(cat /vault/.vault-token)
 fi
 
 function start_envconsul() {
