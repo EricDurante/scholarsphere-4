@@ -105,7 +105,7 @@ steps:
         -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
         -e DRONE_BRANCH=$DRONE_BRANCH
         -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
-        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec-external
+        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec
     - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER
     - docker start test-$DRONE_BUILD_NUMBER -a
 
@@ -242,6 +242,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: adcdae2148d62e633dc3a615b2373fc896b99a30be366f8639752c5202064eea
+hmac: 432e094257434db66ed43406f8e08759c9515afea7a1f8a0cc0606023047d210
 
 ...
