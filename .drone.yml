@@ -81,7 +81,7 @@ steps:
   failure: ignore
   commands:
     - export DOCKER_HOST=unix:///var/run/host.sock
-    - docker create --name test-$DRONE_BUILD_NUMBER --network drone
+    - docker create --name test-$DRONE_BUILD_NUMBER-external --network drone
         -e S3_ENDPOINT=http://minio:9000
         -e AWS_BUCKET=scholarsphere
         -e RSPEC_ARGS="--tags external"
@@ -242,6 +242,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: 432e094257434db66ed43406f8e08759c9515afea7a1f8a0cc0606023047d210
+hmac: 0a46a2db10041fa65cba37fa09a8a8a9199c959f29ae3738133ead91d01e9d48
 
 ...
