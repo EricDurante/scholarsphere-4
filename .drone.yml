@@ -76,6 +76,39 @@ steps:
     - export DOCKER_HOST=unix:///var/run/host.sock
     - docker run harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-niftany
 
+- name: test-external
+  <<: *test_common
+  failure: ignore
+  commands:
+    - export DOCKER_HOST=unix:///var/run/host.sock
+    - docker create --name test-$DRONE_BUILD_NUMBER --network drone
+        -e S3_ENDPOINT=http://minio:9000
+        -e AWS_BUCKET=scholarsphere
+        -e RSPEC_ARGS="--tags external"
+        -e AWS_ACCESS_KEY_ID=scholarsphere
+        -e AWS_SECRET_ACCESS_KEY=scholarsphere
+        -e DATACITE_ENDPOINT=$DATACITE_ENDPOINT
+        -e DATACITE_USERNAME=$DATACITE_USERNAME
+        -e DATACITE_PASSWORD=$DATACITE_PASSWORD
+        -e DATACITE_PREFIX=$DATACITE_PREFIX
+        -e DATACITE_PUBLISHER=$DATACITE_PUBLISHER
+        -e AWS_REGION=us-east-1
+        -e REDIS_HOST=redis
+        -e APP_HOST=test-$DRONE_BUILD_NUMBER
+        -e POSTGRES_USER=scholarsphere
+        -e SELENIUM_URL=http://selenium:4444/wd/hub
+        -e POSTGRES_PASSWORD=scholarsphere
+        -e POSTGRES_DB=scholarsphere
+        -e POSTGRES_HOST=postgres
+        -e SOLR_HOST=solr
+        -e CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
+        -e DRONE_COMMIT_SHA=$DRONE_COMMIT_SHA
+        -e DRONE_BRANCH=$DRONE_BRANCH
+        -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
+        harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec-external
+    - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER
+    - docker start test-$DRONE_BUILD_NUMBER -a
+
 - name: test
   <<: *test_common
   commands:
@@ -209,6 +242,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: fec077364ec8d7b5af5d66761821be7226d877d9eda915f46125094a2660aa8d
+hmac: adcdae2148d62e633dc3a615b2373fc896b99a30be366f8639752c5202064eea
 
 ...
