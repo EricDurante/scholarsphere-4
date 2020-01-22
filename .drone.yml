@@ -84,7 +84,7 @@ steps:
     - docker create --name test-$DRONE_BUILD_NUMBER-external --network drone
         -e S3_ENDPOINT=http://minio:9000
         -e AWS_BUCKET=scholarsphere
-        -e RSPEC_ARGS="--tags external"
+        -e RSPEC_ARGS="--tag external"
         -e AWS_ACCESS_KEY_ID=scholarsphere
         -e AWS_SECRET_ACCESS_KEY=scholarsphere
         -e DATACITE_ENDPOINT=$DATACITE_ENDPOINT
@@ -242,6 +242,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: 64302f04beed2ab8bf266bcb6cee64ca5b9ce4bfbdc346110e2ee9edeec71ced
+hmac: e7387d10c8f1097e9b48f14f7b4489922ddc9347920c26f132c82fd51e9f96ed
 
 ...
