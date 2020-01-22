@@ -107,7 +107,7 @@ steps:
         -e DRONE_BUILD_STARTED=$DRONE_BUILD_STARTED
         harbor.dsrd.libraries.psu.edu/library/scholarsphere:$DRONE_BUILD_NUMBER-rspec
     - docker network connect $DOCKER_NETWORK_ID test-$DRONE_BUILD_NUMBER-external
-    - docker start test-$DRONE_BUILD_NUMBER -a
+    - docker start test-$DRONE_BUILD_NUMBER-external -a
 
 - name: test
   <<: *test_common
@@ -242,6 +242,6 @@ volumes:
     path: /var/run/docker.sock
 ---
 kind: signature
-hmac: e7387d10c8f1097e9b48f14f7b4489922ddc9347920c26f132c82fd51e9f96ed
+hmac: 80626512ba9b3965cbfd5eee45e1359476ee999d0c3b16b09f407d4fe139ff2d
 
 ...
