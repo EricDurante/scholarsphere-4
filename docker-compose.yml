@@ -56,12 +56,12 @@ services:
         - harbor.dsrd.libraries.psu.edu/library/ss-test:latest
       context: . 
       target: base
-    # volumes:
-    # - bundle-data:/app/vendor/bundle
-    # - node-data:/app/node_modules
-    # - type: bind
-    #   source: ./
-    #   target: /app/
+    volumes:
+    - bundle-data:/app/vendor/bundle
+    - node-data:/app/node_modules
+    - type: bind
+      source: ./
+      target: /app/
     ports:
       - "3000:3000"
   minio:
