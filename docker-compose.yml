@@ -38,7 +38,9 @@ services:
     <<: *web_env
     build:
       context: . 
-      target: sidekiq
+      target: base
+    command:
+      - /app/bin/sidekiq
     volumes:
     - bundle-data:/app/vendor/bundle
     - node-data:/app/node_modules
@@ -50,10 +52,6 @@ services:
     stdin_open: true
     <<: *web_env
     build: 
-      cache_from:
-        - ruby:2.6.3
-        - harbor.dsrd.libraries.psu.edu/library/ss-test:latest-base
-        - harbor.dsrd.libraries.psu.edu/library/ss-test:latest
       context: . 
       target: base
     volumes:

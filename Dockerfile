@@ -1,19 +1,22 @@
-ARG BASETAG=base
-FROM harbor.dsrd.libraries.psu.edu/library/scholarsphere:${BASETAG} as cache
-FROM harbor.dsrd.libraries.psu.edu/library/scholarsphere:${BASETAG} as base
+FROM psul/ruby:2.6.3-node-12 as base
 
-ENV TZ=America/New_York
-
-WORKDIR /app
-
+RUN useradd -u 2000 app -d /app
+RUN mkdir /app/tmp
+RUN chown -R app /app
 USER app
 
 COPY Gemfile Gemfile.lock /app/
-COPY --from=cache /app/vendor/ /app/vendor/
-RUN bundle install --path vendor/bundle
+RUN gem install bundler:2.0.2
+RUN bundle install --path vendor/bundle && \
+  rm -rf /app/.bundle/cache && \
+  rm -rf /app/vendor/bundle/ruby/*/cache
+
 
 COPY package.json yarn.lock /app/
-RUN yarn --frozen-lockfile
+RUN yarn --frozen-lockfile && \
+  rm -rf /app/.cache && \
+  rm -rf /app/tmp
+
 
 COPY --chown=app . /app
 
@@ -22,6 +25,19 @@ CMD ["./entrypoint.sh"]
 # Final Target
 FROM base as production
 
-RUN RAILS_ENV=production DEFAULT_URL_HOST=localhost SECRET_KEY_BASE=$(bundle exec rails secret) AWS_BUCKET=bucket AWS_ACCESS_KEY_ID=key AWS_SECRET_ACCESS_KEY=secret AWS_REGION=us-east-1 bundle exec rails assets:precompile
+RUN RAILS_ENV=production \
+  DEFAULT_URL_HOST=localhost \
+  SECRET_KEY_BASE=$(bundle exec rails secret) \
+  AWS_BUCKET=bucket \
+  AWS_ACCESS_KEY_ID=key \
+  AWS_SECRET_ACCESS_KEY=secret \
+  AWS_REGION=us-east-1 \
+  bundle exec rails assets:precompile && \
+  rm -rf /app/.cache/ && \
+  rm -rf /app/node_modules/.cache/ && \
+  rm -rf /app/tmp/ && \
+  rm -rf /tmp
+
+
 
 CMD ["./entrypoint.sh"]
