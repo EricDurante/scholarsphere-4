@@ -1,4 +1,4 @@
-FROM psul/ruby:2.6.3-node-12
+FROM psul/ruby:2.6.3-node-12 as base
 
 RUN useradd -u 2000 app -d /app
 RUN mkdir /app/tmp
