@@ -35,8 +35,7 @@ RUN RAILS_ENV=production \
   bundle exec rails assets:precompile && \
   rm -rf /app/.cache/ && \
   rm -rf /app/node_modules/.cache/ && \
-  rm -rf /app/tmp/ && \
-  rm -rf /tmp
+  rm -rf /app/tmp/
 
 
 
