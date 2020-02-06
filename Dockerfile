@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/psu-libraries/ruby-base/ruby:2.6.5-node-12
+FROM psul/ruby:2.6.3-node-12
 
 RUN useradd -u 2000 app -d /app
 RUN mkdir /app/tmp
