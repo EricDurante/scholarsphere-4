@@ -248,6 +248,8 @@ GEM
     multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     niftany (0.6.0)
       colorize (~> 0.8.1)
       erb_lint (~> 0.0.22)
@@ -400,6 +402,7 @@ GEM
     rubocop-rspec (1.37.1)
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
+    ruby2_keywords (0.0.2)
     ruby_dep (1.5.0)
     ruby_parser (3.14.0)
       sexp_processor (~> 4.9)
@@ -442,11 +445,19 @@ GEM
       rack (>= 2.0.0)
       rack-protection (>= 2.0.0)
       redis (>= 4.1.0)
+    sidekiq_alive (2.0.1)
+      sidekiq
+      sinatra
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    sinatra (2.0.7)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.7)
+      tilt (~> 2.0)
     smart_properties (1.15.0)
     spring (2.1.0)
     spring-commands-rspec (1.0.4)
@@ -550,6 +561,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   shrine (~> 3.0)
   sidekiq (~> 6.0)
+  sidekiq_alive (= 2.0.1)
   simplecov
   spring
   spring-commands-rspec
