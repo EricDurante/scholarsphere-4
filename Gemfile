@@ -30,7 +30,6 @@ gem 'sass-rails', '~> 5'
 gem 'scholarsphere-client', github: 'psu-stewardship/scholarsphere-client', branch: 'master'
 gem 'shrine', '~> 3.0'
 gem 'sidekiq', '~> 6.0'
-gem 'sidekiq_alive', '2.0.1'
 gem 'uppy-s3_multipart', '~> 0.3'
 gem 'webpacker', '~> 4.0'
 
