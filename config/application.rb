@@ -30,7 +30,7 @@ module Scholarsphere
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    config.admin_group = ENV.fetch('ADMIN_GROUP', 'cn=umg/up.dlt.scholarsphere-admin,dc=psu,dc=edu')
+    config.admin_group = ENV.fetch('ADMIN_GROUP', 'up.dlt.scholarsphere-admin')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
