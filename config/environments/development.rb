@@ -64,5 +64,5 @@ Rails.application.configure do
 
   # This enables puma-dev to work. If you're not using this, then you
   # can just ignore it.
-  config.hosts << 'scholarsphere-4.test'
+  config.hosts << 'scholarsphere-asyncpromo.dsrd.libraries.psu.edu'
 end

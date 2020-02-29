@@ -73,3 +73,9 @@ group :test do
   gem 'webdrivers'
   gem 'webmock'
 end
+
+gem "yabeda-prometheus", "~> 0.5.0"
+
+gem "yabeda-rails", "~> 0.4.0"
+
+gem "yabeda-sidekiq", "~> 0.5.0"
