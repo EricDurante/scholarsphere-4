@@ -73,3 +73,5 @@ group :test do
   gem 'webdrivers'
   gem 'webmock'
 end
+
+gem "prometheus_exporter", "~> 0.5.1"
