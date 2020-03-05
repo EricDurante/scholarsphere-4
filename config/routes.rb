@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   end
   concern :exportable, Blacklight::Routes::Exportable.new
 
-  resources :resources, only: [:show]
+  resources :resources, only: [:show] do
+    get 'content/:id', to: 'resources#download', as: 'content'
+  end
 
   resources :bookmarks do
     concerns :exportable
