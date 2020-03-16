@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'logging/splunk_formatter.rb'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -76,7 +78,10 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  # config.log_formatter = ::Logger::Formatter.new
+
+  # Use custom logging formatter so that messages are json decodable 
+  config.log_formatter = SplunkFormatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
