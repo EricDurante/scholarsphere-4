@@ -1,4 +1,4 @@
-class SplunkFormatter < ActiveSupport::Logger::Formatter
+class SplunkFormatter < ::Logger::Formatter
     def call(severity, timestamp, _progname, message)
         { 
             type: severity,
