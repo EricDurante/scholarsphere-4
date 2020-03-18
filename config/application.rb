@@ -38,10 +38,10 @@ module Scholarsphere
     # the framework and any gems in your application.
 
     # Logging
-    # config.lograge.enabled = true
+    config.lograge.enabled = true
 
     # TODO get defaulty
-    # config.lograge.formatter = Lograge::Formatters::Logstash.new
+    config.lograge.formatter = Lograge::Formatters::Logstash.new
 
     # Active Job Configurations
     redis_config = Scholarsphere::RedisConfig.new
