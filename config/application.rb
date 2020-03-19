@@ -41,7 +41,7 @@ module Scholarsphere
     config.lograge.enabled = true
 
     # TODO get defaulty
-    config.lograge.formatter = Lograge::Formatters::Json.new
+    # config.lograge.formatter = Lograge::Formatters::Json.new
 
     # Active Job Configurations
     redis_config = Scholarsphere::RedisConfig.new
