@@ -2,6 +2,12 @@ require 'lograge/sql/extension'
 
 Rails.application.configure do
 
+    config.lograge.custom_options = lambda do |event|
+      {
+        ip: event.payload[:headers][:REMOTE_ADDR]
+      }
+    end
+
     # Instead of extracting event as Strings, extract as Hash. You can also extract
     # additional fields to add to the formatter
     config.lograge_sql.extract_event = Proc.new do |event|
