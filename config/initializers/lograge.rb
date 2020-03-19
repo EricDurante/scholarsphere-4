@@ -3,7 +3,6 @@ require 'lograge/sql/extension'
 Rails.application.configure do
 
     config.lograge.custom_options = lambda do |event|
-      binding.pry
       {
         remote_addr: event.payload[:headers][:REMOTE_ADDR],
         x_forwarded_for: event.payload[:headers][:HTTP_X_FORWARDED_FOR]
