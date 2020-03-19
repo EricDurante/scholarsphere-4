@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'logging/splunk_formatter.rb'
+require 'logging/json_formatter.rb'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -81,7 +81,7 @@ Rails.application.configure do
   # config.log_formatter = ::Logger::Formatter.new
 
   # Use custom logging formatter so that messages are json decodable 
-  config.log_formatter = SplunkFormatter.new
+  config.log_formatter = JSONFormatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'

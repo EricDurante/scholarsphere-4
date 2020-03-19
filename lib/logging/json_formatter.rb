@@ -1,6 +1,6 @@
 require 'json'
 
-class SplunkFormatter
+class JSONFormatter
 
     def parse_message(message)
         begin
