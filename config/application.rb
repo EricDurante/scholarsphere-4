@@ -38,7 +38,7 @@ module Scholarsphere
     # the framework and any gems in your application.
 
     # Logging
-    config.lograge.enabled = true
+    config.lograge.enabled = false
 
     # TODO get defaulty
     # config.lograge.formatter = Lograge::Formatters::Json.new
