@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'logging/json_formatter.rb'
+require_relative '../lib/logging/json_formatter.rb'
 
 require_relative 'boot'
 
@@ -42,7 +42,7 @@ module Scholarsphere
     # Logging
     config.lograge.enabled = true
 
-    if ENV["RAILS_LOG_JSON"].present?
+    if ENV['RAILS_LOG_JSON'].present?
       config.lograge.formatter = Lograge::Formatters::Json.new
       config.log_formatter = JSONFormatter.new
     else
