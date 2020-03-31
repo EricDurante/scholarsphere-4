@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
   def current_user
     super || User.guest
   end
+
+  def append_info_to_payload(payload)
+    super
+    payload[:request_id] = request.env["action_dispatch.request_id"]
+  end
 end
