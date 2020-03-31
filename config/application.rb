@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'logging/json_formatter.rb'
+
 require_relative 'boot'
 
 require 'rails'
