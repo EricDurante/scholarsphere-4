@@ -40,8 +40,12 @@ module Scholarsphere
     # Logging
     config.lograge.enabled = true
 
-    # TODO get defaulty
-    config.lograge.formatter = Lograge::Formatters::Json.new
+    if ENV["RAILS_LOG_JSON"].present?
+      config.lograge.formatter = Lograge::Formatters::Json.new
+      config.log_formatter = JSONFormatter.new
+    else
+      config.log_formatter = ::Logger::Formatter.new
+    end
 
     # Active Job Configurations
     redis_config = Scholarsphere::RedisConfig.new
