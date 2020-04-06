@@ -10,6 +10,7 @@ gem 'blacklight', '~> 7.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.0'
 gem 'cocoon'
+gem 'ddtrace', '~> 0.34'
 gem 'devise', '~> 4.7'
 gem 'diffy'
 gem 'faraday', '~> 0.17.0'
