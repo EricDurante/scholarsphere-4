@@ -1,4 +1,4 @@
-FROM psul/ruby:2.6.3-node-12 as base
+FROM psul/ruby:20200406-2.6.3-node-12 as base
 
 COPY bin/vaultshell /usr/local/bin/
 
