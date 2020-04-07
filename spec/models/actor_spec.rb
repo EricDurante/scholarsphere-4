@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Creator, type: :model do
+RSpec.describe Actor, type: :model do
   describe 'table' do
     it { is_expected.to have_db_column(:given_name).of_type(:string) }
     it { is_expected.to have_db_column(:surname).of_type(:string) }
@@ -15,7 +15,7 @@ RSpec.describe Creator, type: :model do
   end
 
   describe 'factories' do
-    it { is_expected.to have_valid_factory(:creator) }
+    it { is_expected.to have_valid_factory(:actor) }
   end
 
   describe 'associations' do
@@ -30,43 +30,43 @@ RSpec.describe Creator, type: :model do
   describe '.find_or_create_by_user' do
     let(:user) { create :user }
 
-    it 'creates a Creator from a User if none exists' do
-      creator = described_class.find_or_create_by_user(user)
+    it 'creates a Actor from a User if none exists' do
+      actor = described_class.find_or_create_by_user(user)
 
-      expect(creator).to be_persisted
-      expect(creator.psu_id).to eq user.access_id
-      expect(creator.email).to eq user.email
-      expect(creator.given_name).to eq user.given_name
-      expect(creator.surname).to eq user.surname
+      expect(actor).to be_persisted
+      expect(actor.psu_id).to eq user.access_id
+      expect(actor.email).to eq user.email
+      expect(actor.given_name).to eq user.given_name
+      expect(actor.surname).to eq user.surname
     end
 
-    it 'returns a matching Creator if one exists' do
+    it 'returns a matching Actor if one exists' do
       described_class.find_or_create_by_user(user)
 
       expect {
-        @existing_creator = described_class.find_or_create_by_user(user)
+        @existing_actor = described_class.find_or_create_by_user(user)
       }.not_to change(described_class, :count)
 
-      expect(@existing_creator.psu_id).to eq user.access_id
+      expect(@existing_actor.psu_id).to eq user.access_id
     end
   end
 
   describe '#default_alias' do
-    let(:creator) { build :creator, given_name: 'Pat', surname: 'Researcher' }
+    let(:actor) { build :actor, given_name: 'Pat', surname: 'Researcher' }
 
     context 'when nil' do
-      before { creator.default_alias = nil }
+      before { actor.default_alias = nil }
 
       it 'defaults to concatenated given and surname' do
-        expect(creator.default_alias).to eq 'Pat Researcher'
+        expect(actor.default_alias).to eq 'Pat Researcher'
       end
     end
 
     context 'when set' do
-      before { creator.default_alias = 'Dr. Pat Q. Researcher PhD MD MLIS' }
+      before { actor.default_alias = 'Dr. Pat Q. Researcher PhD MD MLIS' }
 
       it 'returns the saved value' do
-        expect(creator.default_alias).to eq 'Dr. Pat Q. Researcher PhD MD MLIS'
+        expect(actor.default_alias).to eq 'Dr. Pat Q. Researcher PhD MD MLIS'
       end
     end
   end

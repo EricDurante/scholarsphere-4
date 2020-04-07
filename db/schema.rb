@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_200754) do
+ActiveRecord::Schema.define(version: 2020_04_06_182128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 2020_03_04_200754) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_type", "agent_id"], name: "index_access_controls_on_agent_type_and_agent_id"
     t.index ["resource_type", "resource_id"], name: "index_access_controls_on_resource_type_and_resource_id"
+  end
+
+  create_table "actors", force: :cascade do |t|
+    t.string "surname"
+    t.string "given_name"
+    t.string "email"
+    t.string "psu_id"
+    t.string "orcid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "default_alias"
+    t.index ["psu_id"], name: "index_actors_on_psu_id"
   end
 
   create_table "api_tokens", force: :cascade do |t|
@@ -48,18 +60,6 @@ ActiveRecord::Schema.define(version: 2020_03_04_200754) do
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_bookmarks_on_document_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
-  end
-
-  create_table "creators", force: :cascade do |t|
-    t.string "surname"
-    t.string "given_name"
-    t.string "email"
-    t.string "psu_id"
-    t.string "orcid"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "default_alias"
-    t.index ["psu_id"], name: "index_creators_on_psu_id"
   end
 
   create_table "file_resources", force: :cascade do |t|
@@ -141,11 +141,11 @@ ActiveRecord::Schema.define(version: 2020_03_04_200754) do
 
   create_table "work_version_creations", force: :cascade do |t|
     t.bigint "work_version_id", null: false
-    t.bigint "creator_id", null: false
     t.string "alias"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["creator_id"], name: "index_work_version_creations_on_creator_id"
+    t.bigint "actor_id", null: false
+    t.index ["actor_id"], name: "index_work_version_creations_on_actor_id"
     t.index ["work_version_id"], name: "index_work_version_creations_on_work_version_id"
   end
 
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_200754) do
   add_foreign_key "file_version_memberships", "work_versions"
   add_foreign_key "user_group_memberships", "groups"
   add_foreign_key "user_group_memberships", "users"
-  add_foreign_key "work_version_creations", "creators"
+  add_foreign_key "work_version_creations", "actors"
   add_foreign_key "work_version_creations", "work_versions"
   add_foreign_key "work_versions", "works"
   add_foreign_key "works", "users", column: "depositor_id"
