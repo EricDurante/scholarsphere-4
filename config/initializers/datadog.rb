@@ -4,8 +4,8 @@ if ENV['DD_AGENT_HOST']
   require 'ddtrace'
   Datadog.configure do |c|
     c.use :rails
-    c.use :active_record
-    c.use :faraday
+    c.use :active_record, orm_service_name: 'scholarsphere-active_record'
+    c.use :faraday, service_name: 'scholarsphere-faraday'
     c.use :sidekiq
     c.use :redis
     c.tracer env: ENV['DD_ENV']
