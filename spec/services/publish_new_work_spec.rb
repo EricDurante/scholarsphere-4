@@ -18,7 +18,7 @@ RSpec.describe PublishNewWork do
           creator_aliases_attributes: [
             {
               alias: "#{user.given_name} #{user.surname}",
-              creator_attributes: {
+              actor_attributes: {
                 email: user.email,
                 given_name: user.given_name,
                 surname: user.surname,
@@ -78,7 +78,7 @@ RSpec.describe PublishNewWork do
           creator_aliases_attributes: [
             {
               alias: "#{user.given_name} #{user.surname}",
-              creator_attributes: {
+              actor_attributes: {
                 email: user.email,
                 given_name: user.given_name,
                 surname: user.surname,
@@ -116,7 +116,7 @@ RSpec.describe PublishNewWork do
           creator_aliases_attributes: [
             {
               alias: "#{user.given_name} #{user.surname}",
-              creator_attributes: {
+              actor_attributes: {
                 email: user.email,
                 given_name: user.given_name,
                 surname: user.surname,
@@ -152,7 +152,7 @@ RSpec.describe PublishNewWork do
           creator_aliases_attributes: [
             {
               alias: "#{user.given_name} #{user.surname}",
-              creator_attributes: {
+              actor_attributes: {
                 email: user.email,
                 given_name: user.given_name,
                 surname: user.surname,

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class Creator < ApplicationRecord
+class Actor < ApplicationRecord
   has_many :work_version_creations,
            dependent: :restrict_with_exception,
-           inverse_of: :creator
+           inverse_of: :actor
 
   has_many :work_versions,
            through: :work_version_creations,
-           inverse_of: :creators
+           inverse_of: :actors
 
   validates :surname,
             presence: true

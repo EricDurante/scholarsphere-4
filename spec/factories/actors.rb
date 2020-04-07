@@ -3,7 +3,7 @@
 require Rails.root.join('spec', 'support', 'factory_bot_helpers')
 
 FactoryBot.define do
-  factory :creator do
+  factory :actor do
     given_name { Faker::Name.first_name }
     surname { Faker::Name.last_name }
     email { "#{psu_id}@psu.edu" }

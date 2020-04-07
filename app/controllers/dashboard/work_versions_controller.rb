@@ -38,8 +38,8 @@ module Dashboard
       @work_version = policy_scope(WorkVersion).find(params[:id])
       authorize(@work_version)
 
-      my_creator = Creator.find_or_create_by_user(current_user)
-      @work_version.build_creator_alias(creator: my_creator)
+      my_creator = Actor.find_or_create_by_user(current_user)
+      @work_version.build_creator_alias(actor: my_creator)
     end
 
     def update
@@ -139,10 +139,10 @@ module Dashboard
             source: [],
             creator_aliases_attributes: [
               :id,
-              :creator_id,
+              :actor_id,
               :_destroy,
               :alias,
-              creator_attributes: [
+              actor_attributes: [
                 :id,
                 :email,
                 :given_name,
