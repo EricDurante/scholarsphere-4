@@ -64,6 +64,7 @@ module Scholarsphere
                             action: 'MODIFYCOLLECTION',
                             collection: config.collection_name,
                             replicationFactor: config.replication_factor,
+                            autoAddReplicas: "true",
                             "collection.configName": config.configset_name)
       check_resp(resp)
     end
