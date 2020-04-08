@@ -55,6 +55,7 @@ module Scholarsphere
                             action: 'CREATE',
                             name: config.collection_name,
                             numShards: config.num_shards,
+                            replicationFactor: config.replication_factor,
                             "collection.configName": config.configset_name)
       check_resp(resp)
     end

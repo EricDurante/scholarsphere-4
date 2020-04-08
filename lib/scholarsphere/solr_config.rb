@@ -39,6 +39,10 @@ module Scholarsphere
       ENV.fetch('SOLR_NUM_SHARDS', '1')
     end
 
+    def replication_factor
+      ENV.fetch('SOLR_REPLICATION_FACTOR', '1')
+    end
+
     def configset_name
       @configset_name ||= "configset-#{solr_md5}"
     end
