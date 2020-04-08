@@ -55,7 +55,6 @@ module Scholarsphere
                             action: 'CREATE',
                             name: config.collection_name,
                             numShards: config.num_shards,
-                            replicationFactor: config.replication_factor,
                             "collection.configName": config.configset_name)
       check_resp(resp)
     end
@@ -64,6 +63,7 @@ module Scholarsphere
       resp = connection.get(SolrConfig::COLLECTION_PATH,
                             action: 'MODIFYCOLLECTION',
                             collection: config.collection_name,
+                            replicationFactor: config.replication_factor,
                             "collection.configName": config.configset_name)
       check_resp(resp)
     end
