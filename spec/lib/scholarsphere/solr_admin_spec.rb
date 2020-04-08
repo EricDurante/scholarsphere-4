@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'webmock'
 require 'faraday'
+require 'rspec/its'
 require_relative '../../../lib/scholarsphere/solr_config'
 require_relative '../../../lib/scholarsphere/solr_admin'
 
@@ -156,7 +157,9 @@ RSpec.describe Scholarsphere::SolrAdmin do
           '?action=CREATE' \
           "&name=#{config.collection_name}" \
           "&numShards=#{config.num_shards}" \
-          "&collection.configName=#{config.configset_name}"
+          "&replicationFactor=#{config.replication_factor}" \
+          "&autoAddReplicas=true" \
+          "&collection.configName=#{config.configset_name}" 
       ).with(headers: headers).to_return(status: 200, body: '', headers: {})
     end
 
@@ -172,7 +175,9 @@ RSpec.describe Scholarsphere::SolrAdmin do
         "#{config.collection_url}" \
           '?action=MODIFYCOLLECTION' \
           "&collection=#{config.collection_name}" \
-          "&collection.configName=#{config.configset_name}"
+          "&replicationFactor=#{config.replication_factor}" \
+          "&autoAddReplicas=true" \
+          "&collection.configName=#{config.configset_name}" 
       ).with(headers: headers).to_return(status: 200, body: '', headers: {})
     end
 
