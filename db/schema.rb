@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_182128) do
+ActiveRecord::Schema.define(version: 2020_04_08_193501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(version: 2020_04_06_182128) do
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "given_name"
-    t.string "surname"
+    t.bigint "actor_id", null: false
+    t.index ["actor_id"], name: "index_users_on_actor_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2020_04_06_182128) do
   add_foreign_key "file_version_memberships", "work_versions"
   add_foreign_key "user_group_memberships", "groups"
   add_foreign_key "user_group_memberships", "users"
+  add_foreign_key "users", "actors"
   add_foreign_key "work_version_creations", "actors"
   add_foreign_key "work_version_creations", "work_versions"
   add_foreign_key "work_versions", "works"

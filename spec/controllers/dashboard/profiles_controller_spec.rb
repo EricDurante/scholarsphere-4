@@ -20,7 +20,7 @@ RSpec.describe Dashboard::ProfilesController, type: :controller do
   }
 
   let(:user) { create :user }
-  let(:actor) { Actor.find_or_create_by_user(user) }
+  let(:actor) { user.actor }
 
   describe 'GET #edit' do
     context 'when signed in' do

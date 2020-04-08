@@ -38,8 +38,7 @@ module Dashboard
       @work_version = policy_scope(WorkVersion).find(params[:id])
       authorize(@work_version)
 
-      my_creator = Actor.find_or_create_by_user(current_user)
-      @work_version.build_creator_alias(actor: my_creator)
+      @work_version.build_creator_alias(actor: current_user.actor)
     end
 
     def update
