@@ -12,14 +12,6 @@ class Actor < ApplicationRecord
   validates :surname,
             presence: true
 
-  def self.find_or_create_by_user(user)
-    find_or_create_by(psu_id: user.access_id) do |new_record|
-      new_record.email = user.email
-      new_record.given_name = user.given_name
-      new_record.surname = user.surname
-    end
-  end
-
   def default_alias
     super.presence || "#{given_name} #{surname}"
   end

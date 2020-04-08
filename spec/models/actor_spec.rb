@@ -27,30 +27,6 @@ RSpec.describe Actor, type: :model do
     it { is_expected.to validate_presence_of(:surname) }
   end
 
-  describe '.find_or_create_by_user' do
-    let(:user) { create :user }
-
-    it 'creates a Actor from a User if none exists' do
-      actor = described_class.find_or_create_by_user(user)
-
-      expect(actor).to be_persisted
-      expect(actor.psu_id).to eq user.access_id
-      expect(actor.email).to eq user.email
-      expect(actor.given_name).to eq user.given_name
-      expect(actor.surname).to eq user.surname
-    end
-
-    it 'returns a matching Actor if one exists' do
-      described_class.find_or_create_by_user(user)
-
-      expect {
-        @existing_actor = described_class.find_or_create_by_user(user)
-      }.not_to change(described_class, :count)
-
-      expect(@existing_actor.psu_id).to eq user.access_id
-    end
-  end
-
   describe '#default_alias' do
     let(:actor) { build :actor, given_name: 'Pat', surname: 'Researcher' }
 

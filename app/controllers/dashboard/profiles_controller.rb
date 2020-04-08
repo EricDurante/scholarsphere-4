@@ -3,11 +3,11 @@
 module Dashboard
   class ProfilesController < BaseController
     def edit
-      @actor = Actor.find_or_create_by_user(current_user)
+      @actor = current_user.actor
     end
 
     def update
-      @actor = Actor.find_or_create_by_user(current_user)
+      @actor = current_user.actor
 
       if @actor.update(creator_params)
         redirect_to dashboard_works_path,
