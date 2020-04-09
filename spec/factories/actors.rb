@@ -13,5 +13,9 @@ FactoryBot.define do
     # of 4, separated by '-'
     #   Example: 123 -> 0000-0000-0000-0123
     sequence(:orcid) { |n| format('%<n>016d', n: n).gsub(/(\d{4})(?!$)/, '\1-') }
+
+    trait :with_user do
+      user
+    end
   end
 end

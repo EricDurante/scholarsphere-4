@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_193501) do
+ActiveRecord::Schema.define(version: 2020_04_09_145829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,13 +163,15 @@ ActiveRecord::Schema.define(version: 2020_04_08_193501) do
 
   create_table "works", force: :cascade do |t|
     t.string "work_type"
-    t.integer "depositor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
     t.string "doi"
     t.datetime "embargoed_until"
+    t.bigint "depositor_id", null: false
+    t.bigint "proxy_id"
     t.index ["depositor_id"], name: "index_works_on_depositor_id"
+    t.index ["proxy_id"], name: "index_works_on_proxy_id"
   end
 
   add_foreign_key "file_version_memberships", "file_resources"
@@ -180,5 +182,6 @@ ActiveRecord::Schema.define(version: 2020_04_08_193501) do
   add_foreign_key "work_version_creations", "actors"
   add_foreign_key "work_version_creations", "work_versions"
   add_foreign_key "work_versions", "works"
-  add_foreign_key "works", "users", column: "depositor_id"
+  add_foreign_key "works", "actors", column: "depositor_id"
+  add_foreign_key "works", "actors", column: "proxy_id"
 end

@@ -19,8 +19,11 @@ RSpec.describe Actor, type: :model do
   end
 
   describe 'associations' do
+    it { is_expected.to have_one(:user) }
     it { is_expected.to have_many(:work_version_creations) }
     it { is_expected.to have_many(:work_versions).through(:work_version_creations) }
+    it { is_expected.to have_many(:deposited_works).class_name('Work').inverse_of(:depositor) }
+    it { is_expected.to have_many(:proxy_deposited_works).class_name('Work').inverse_of(:proxy_depositor) }
   end
 
   describe 'validations' do
