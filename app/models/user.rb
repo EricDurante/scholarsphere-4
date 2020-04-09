@@ -10,11 +10,6 @@ class User < ApplicationRecord
 
   belongs_to :actor
 
-  has_many :works,
-           foreign_key: 'depositor_id',
-           inverse_of: 'depositor',
-           dependent: :restrict_with_exception
-
   has_many :access_controls,
            as: :agent,
            dependent: :destroy
@@ -28,6 +23,12 @@ class User < ApplicationRecord
   validates :email,
             presence: true,
             uniqueness: true
+
+  def works
+    actor.deposited_works
+      .or(actor.proxy_deposited_works)
+      .distinct
+  end
 
   def self.guest
     new(guest: true, groups: [Group.public_agent]).tap(&:readonly!)

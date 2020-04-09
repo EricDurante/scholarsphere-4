@@ -24,7 +24,6 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:actor) }
-    it { is_expected.to have_many(:works) }
     it { is_expected.to have_many(:access_controls) }
     it { is_expected.to have_many(:user_group_memberships) }
     it { is_expected.to have_many(:groups).through(:user_group_memberships) }
@@ -70,7 +69,7 @@ RSpec.describe User, type: :model do
 
         it 'creates a new Actor record' do
           expect { described_class.from_omniauth(auth_params) }
-          .to change(Actor, :count).by(1)
+            .to change(Actor, :count).by(1)
         end
 
         it 'returns the newly created User, associated with the new Actor' do
@@ -106,7 +105,7 @@ RSpec.describe User, type: :model do
 
         it 'does NOT create a new Actor record' do
           expect { described_class.from_omniauth(auth_params) }
-          .not_to change(Actor, :count)
+            .not_to change(Actor, :count)
         end
 
         it 'returns the newly created User, associated with the existing Actor' do
@@ -155,6 +154,25 @@ RSpec.describe User, type: :model do
       it 'returns the User record' do
         expect(described_class.from_omniauth(auth_params)).to eq existing_user
       end
+    end
+  end
+
+  describe '#works' do
+    let(:user) { create :user }
+    let(:user_actor) { user.actor }
+
+    let(:different_user) { create :user }
+    let(:different_actor) { different_user.actor }
+
+    let!(:deposited_work) { create :work, depositor: user_actor }
+    let!(:proxied_work) { create :work, depositor: different_actor, proxy_depositor: user_actor }
+
+    before do
+      create :work, depositor: different_actor
+    end
+
+    it "returns a scope of works where the User's Actor is either the depositor or proxy" do
+      expect(user.works).to contain_exactly(deposited_work, proxied_work)
     end
   end
 

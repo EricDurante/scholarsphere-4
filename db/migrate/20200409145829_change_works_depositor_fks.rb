@@ -1,10 +1,11 @@
-class AddActorIdToUsers < ActiveRecord::Migration[6.0]
+class ChangeWorksDepositorFks < ActiveRecord::Migration[6.0]
   def change
-    # Must do this because we can't have any NULLs in the users.actor_id column
-    # and therefore must blow all users away first.
-    delete_database
+    delete_database # prenvent FK constraint errors
 
-    add_reference :users, :actor, null: false, foreign_key: true
+    remove_reference :works, :depositor, null: false, foreign_key: { to_table: :users }
+
+    add_reference :works, :depositor, null: false, foreign_key: { to_table: :actors }
+    add_reference :works, :proxy, null: true, foreign_key: { to_table: :actors }
   end
 
   def delete_database
