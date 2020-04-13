@@ -10,10 +10,15 @@ Rails.application.configure do
   end
 
   config.lograge.custom_options = lambda do |event|
-    {
+    opts = {
       remote_addr: event.payload[:headers][:REMOTE_ADDR],
       x_forwarded_for: event.payload[:headers][:HTTP_X_FORWARDED_FOR]
     }
+    if event.payload[:exception]
+      quoted_stacktrace = %Q('#{Array(event.payload[:stacktrace]).to_json}')
+      opts[:stacktrace] = quoted_stacktrace
+    end
+    opts
   end
 
   # Instead of extracting event as Strings, extract as Hash. You can also extract
