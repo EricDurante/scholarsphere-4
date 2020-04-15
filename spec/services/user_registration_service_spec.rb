@@ -44,5 +44,18 @@ RSpec.describe UserRegistrationService do
         expect(described_class.call(uid: user_id)).to be_nil
       end
     end
+
+    context 'when the user already exists in the database' do
+      let(:user_id) { person.user_id }
+      let(:person) { create(:person) }
+
+      before { create(:user, access_id: user_id) }
+
+      it 'returns the existing user without any changes' do
+        allow(User).to receive(:from_omniauth)
+        described_class.call(uid: user_id)
+        expect(User).not_to have_received(:from_omniauth)
+      end
+    end
   end
 end
